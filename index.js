@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const emailService = require('./emailService');
+const getOdesliLinks = require('./getOdesliLinks');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
@@ -17,4 +18,5 @@ exports.addMap = functions.firestore.document('/events/{documentId}')
         return snap.ref.set({ mapCoordinates }, { merge: true });
     });
 
+exports.getOdesliLinks = functions.https.onRequest(getOdesliLinks);
 
