@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
+const functions = require('firebase-functions');
 
-module.exports =  function (req, res) {
+
+module.exports = function (req, res) {
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
@@ -18,12 +20,13 @@ module.exports =  function (req, res) {
         res.status(400).json({ message: 'Invalid input. Try again.' });
         return;
     }
+    const { host, port, user, pass } = functions.config().emailservice;
     let transporter = nodemailer.createTransport({
-        host: "smtp.hostinger.com", //replace with your email provider
-        port: 587,
+        host,
+        port,
         auth: {
-            user: "toma@tomailiev.com", //replace with the email address
-            pass: "R9>iPmST" //replace with the password
+            user, //replace with the email address
+            pass //replace with the password
         }
     });
 
