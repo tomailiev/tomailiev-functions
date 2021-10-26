@@ -3,11 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const emailService = require('./emailService');
 const getOdesliLinks = require('./getOdesliLinks');
+const addMap = require('./addMap');
 const admin = require('firebase-admin');
 admin.initializeApp();
 const app = express();
 app.use(cors());
-app.get('/odesli', getOdesliLinks)
+app.get('/odesli', getOdesliLinks);
+app.post('/email', emailService);
 
 function preProcessText(input = '') {
     return input.split(' ').join('+').trim();
@@ -16,12 +18,7 @@ function preProcessText(input = '') {
 exports.sendEmail = functions.https.onRequest(emailService);
 
 exports.addMap = functions.firestore.document('/events/{documentId}')
-    .onCreate((snap, _context) => {
-        const gApi = functions.config().eventservice.g_api;
-        const { location, venue } = snap.data();
-        const mapCoordinates = `https://www.google.com/maps/embed/v1/place?key=${gApi}&q=${preProcessText(venue)},${preProcessText(location)}`;
-        return snap.ref.set({ mapCoordinates }, { merge: true });
-    });
+    .onCreate(addMap);
 
 exports.api = functions.https.onRequest(app);
 

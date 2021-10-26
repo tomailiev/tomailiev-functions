@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const functions = require('firebase-functions');
+const config = require('./config');
 
 
 module.exports = function (req, res) {
@@ -20,7 +20,7 @@ module.exports = function (req, res) {
         res.status(400).json({ message: 'Invalid input. Try again.' });
         return;
     }
-    const { host, port, user, pass } = functions.config().emailservice;
+    const { host, port, user, pass } = config.emailservice;
     let transporter = nodemailer.createTransport({
         host,
         port,
