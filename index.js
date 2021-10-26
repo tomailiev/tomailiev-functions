@@ -1,8 +1,13 @@
 const functions = require('firebase-functions');
+const express = require('express');
+const cors = require('cors');
 const emailService = require('./emailService');
 const getOdesliLinks = require('./getOdesliLinks');
 const admin = require('firebase-admin');
 admin.initializeApp();
+const app = express();
+app.use(cors());
+app.get('/odesli', getOdesliLinks)
 
 function preProcessText(input = '') {
     return input.split(' ').join('+').trim();
@@ -18,5 +23,5 @@ exports.addMap = functions.firestore.document('/events/{documentId}')
         return snap.ref.set({ mapCoordinates }, { merge: true });
     });
 
-exports.getOdesliLinks = functions.https.onRequest(getOdesliLinks);
+exports.api = functions.https.onRequest(app);
 
