@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const config = require('./config');
+const { emailservice } = require('./config');
 
 
 module.exports = function (req, res) {
@@ -20,7 +20,7 @@ module.exports = function (req, res) {
         res.status(400).json({ message: 'Invalid input. Try again.' });
         return;
     }
-    const { host, port, user, pass } = config.emailservice;
+    const { host, port, user, pass } = emailservice;
     let transporter = nodemailer.createTransport({
         host,
         port,

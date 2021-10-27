@@ -4,12 +4,14 @@ const cors = require('cors');
 const emailService = require('./emailService');
 const getOdesliLinks = require('./getOdesliLinks');
 const addMap = require('./addMap');
+const getEvents = require('./getEvents');
 const admin = require('firebase-admin');
 admin.initializeApp();
 const app = express();
 app.use(cors());
 app.get('/odesli', getOdesliLinks);
 app.post('/email', emailService);
+app.get('/events', getEvents);
 
 function preProcessText(input = '') {
     return input.split(' ').join('+').trim();
