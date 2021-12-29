@@ -12,7 +12,6 @@ function getAbsEvents() {
                         dateTime: event.EventDate,
                         eventName: event.ProductionName,
                         eventUrl: `${tixUri}${event.EventId}`,
-                        groupName: 'American Bach Soloists',
                         location: `${event.VenueCity} ${event.VenueState}`,
                         venue: event.VenueName,
                     };

@@ -1,4 +1,5 @@
 module.exports = {
     abs: require('./abs'),
-    phil: require('./phil')
+    phil: require('./phil'),
+    hh: require('./hh')
 };
