@@ -62,7 +62,7 @@ function getHhEvents() {
         "body": "{\"productionSeasonIdFilter\":[],\"keywordIds\":null,\"startDate\":\"2021-12-30T00:00:00-05:00\",\"endDate\":\"2023-06-30T23:59:59-04:00\",\"keywords\":[]}",
         "method": "POST",
         // "mode": "cors"
-    }).then(x => x.json())
+    }).then(x => x.json()).then(p => console.log(p))
 }
 
 module.exports = getHhEvents;
