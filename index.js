@@ -6,12 +6,15 @@ const getOdesliLinks = require('./getOdesliLinks');
 const addMap = require('./addMap');
 const getEvents = require('./getEvents');
 const admin = require('firebase-admin');
+const errorHandler = require('./errorHandler');
 admin.initializeApp();
 const app = express();
 app.use(cors());
 app.get('/odesli', getOdesliLinks);
 app.post('/email', emailService);
 app.get('/events', getEvents);
+
+app.use(errorHandler);
 
 function preProcessText(input = '') {
     return input.split(' ').join('+').trim();
