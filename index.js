@@ -7,6 +7,7 @@ const addMap = require('./addMap');
 const getEvents = require('./getEvents');
 const admin = require('firebase-admin');
 const errorHandler = require('./errorHandler');
+const sendMessage = require('./sendMessage');
 admin.initializeApp();
 const app = express();
 app.use(cors());
@@ -24,6 +25,9 @@ exports.sendEmail = functions.https.onRequest(emailService);
 
 exports.addMap = functions.firestore.document('/events/{documentId}')
     .onCreate(addMap);
+
+exports.sendMessage = functions.firestore.document('/messages/{documentId}')
+    .onCreate(sendMessage);
 
 exports.api = functions.https.onRequest(app);
 
