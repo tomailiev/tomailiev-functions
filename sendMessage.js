@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { emailservice } = require('./config');
+const { smtpservice } = require('./config');
 
 module.exports = function sendEmail(snap, _context) {
     const { name, email, subject, message } = snap.data();
@@ -7,7 +7,7 @@ module.exports = function sendEmail(snap, _context) {
         throw new Error('Insufficient information');
     }
 
-    const { host, port, user, pass } = emailservice;
+    const { host, port, user, pass } = smtpservice;
     let transporter = nodemailer.createTransport({
         host,
         port,
